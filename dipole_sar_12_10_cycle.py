@@ -12,8 +12,11 @@ oProject = oDesktop.SetActiveProject("loop antenna")
 designs = ["HFSSDesign5", "HFSSDesign3"]
 
 # 移动馈线和 my 的值
-movefeed_values = ["2mm"]
-my_values = ["2mm"]
+# Movefeed 范围 0 - 35，步长为3
+movefeed_values = [str(i) + 'mm' for i in range(1, 36, 3)]
+
+# my 范围 -73 - 72，步长为15
+my_values = [str(i) + 'mm' for i in range(-73, 72, 15)]
 
 file_paths = {
     "HFSSDesign5": {
