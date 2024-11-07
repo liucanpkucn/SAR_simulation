@@ -11,9 +11,12 @@ oProject = oDesktop.SetActiveProject("loop")
 # 定义需要设置的设计、参数值及文件路径
 designs = ["HFSSDesign5", "HFSSDesign3"]
 
-# 移动馈线和 my 的值
-movefeed_values = ["1mm", "2mm"]
-my_values = ["1mm", "2mm"]
+# Movefeed 范围 0 - 35，步长为3
+movefeed_values = [str(i) + 'mm' for i in range(1, 36, 3)]
+
+# my 范围 -73 - 72，步长为15
+my_values = [str(i) + 'mm' for i in range(-73, 72, 15)]
+
 
 file_paths = {
     "HFSSDesign5": {
