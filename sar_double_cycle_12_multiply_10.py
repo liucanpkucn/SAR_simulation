@@ -12,16 +12,17 @@ oProject = oDesktop.SetActiveProject("MONOPOLE move antenna feed and SAR")
 designs = ["HFSSDesign5", "HFSSDesign3"]
 
 # Movefeed 范围 0 - 35，步长为3
-movefeed_values = [str(i) + 'mm' for i in range(1, 36, 3)]
+movefeed_values = ['2mm']
 
 # my 范围 -73 - 72，步长为15
-my_values = [str(i) + 'mm' for i in range(-73, 72, 15)]
+my_values = ['0mm']
 
 # my_values = ["1mm", "2mm"]
 file_paths = {
-    "HFSSDesign5": {
+    "HFSSDesign6": {
         "param_file": "F:/python/phone/monopole/result/Antenna_efficiency_movefeed={}_my={}.csv",
-        "field_plot_file": "F:/python/phone/monopole/result/monopole_current_move_feed={}_my={}.aedtplt"
+        "field_plot_file": "F:/python/phone/monopole/result/monopole_current_move_feed={}_my={}.aedtplt",
+        "withoutbodyE_plot_file": "F:/python/phone/monopole/result/monopole_wbE_move_feed={}_my={}.aedtplt"
     },
     "HFSSDesign3": {
         "SAR_plot_file": "F:/python/phone/monopole/result/monopole_SAR_move_feed={}_my={}.aedtplt",
@@ -76,12 +77,14 @@ for movefeed in movefeed_values:
             oProject.Save()
             
             # 根据设计执行相应操作
-            if design == "HFSSDesign5":
+            if design == "HFSSDesign6":
                 oDesign.Analyze("Setup1 : Sweep")
                 oModule = oDesign.GetModule("ReportSetup")
                 oModule.ExportToFile("Antenna Params Plot 2", file_paths[design]["param_file"].format(movefeed, my), False)
                 oModule = oDesign.GetModule("FieldsReporter")
                 oModule.ExportFieldPlot("Vector_Jsurf1", False, file_paths[design]["field_plot_file"].format(movefeed, my))
+                oModule.ExportFieldPlot("Vector_E1", False, file_paths[design]["withoutbodyE_plot_file"].format(movefeed, my))
+                
             elif design == "HFSSDesign3":
                 oDesign.Analyze("Setup1")
                 oModule = oDesign.GetModule("FieldsReporter")

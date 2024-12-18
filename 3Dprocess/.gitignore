@@ -1,1 +1,5 @@
 /temp_data/
+*.png
+*.DS_Store
+*.h5
+/temp
